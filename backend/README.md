@@ -17,11 +17,11 @@ Deleted At - datetime
 
 ## Seed the Database
 
-- [ ] User
-- [ ] Measurement
-- [ ] Meal Type
-- [ ] Difficulty
-- [ ] Ingredient
+- [x] User
+- [x] Measurement
+- [x] Meal Type
+- [x] Difficulty
+- [x] Ingredient
 - [ ] Recipe
 - [ ] Recipe Ingredient
 

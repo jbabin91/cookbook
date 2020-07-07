@@ -4,6 +4,8 @@ const Knex = require('knex');
 const { v4: uuidv4 } = require('uuid');
 
 const tableNames = require('../../src/constants/tableNames');
+const difficulty = require('../../src/constants/difficulty');
+const ingredients = require('../../src/constants/ingredients');
 const measurements = require('../../src/constants/measurements');
 const mealTypes = require('../../src/constants/mealTypes');
 
@@ -44,5 +46,21 @@ exports.seed = async (knex) => {
 
   if (process.env.NODE_ENV !== 'test') {
     console.log('Meal Types: ', insertedMealTypes);
+  }
+
+  const insertedDifficulty = await knex(tableNames.difficulty)
+    .del()
+    .then(() => knex(tableNames.difficulty).insert(difficulty, '*'));
+
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('Difficulty: ', insertedDifficulty);
+  }
+
+  const insertedIngredients = await knex(tableNames.ingredient)
+    .del()
+    .then(() => knex(tableNames.ingredient).insert(ingredients, '*'));
+
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('Difficulty: ', insertedIngredients);
   }
 };
