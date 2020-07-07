@@ -1,0 +1,14 @@
+type,unit,abbreviation
+weight,Pound,Ib.
+weight,Ounce,oz.
+volume,Gallon,gal.
+volume,Quart,qt.
+volume,Pint,pt.
+volume,Cup,c.
+volume,Fluid ounce,fl.oz.
+volume,Tablespoon,tbsp.
+volume,Teaspoon,tsp.
+length,Mile,m.
+length,Yard,yd.
+length,Foot,ft.
+length,Inch,in.

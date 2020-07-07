@@ -120,3 +120,4 @@ dist
 .env
 
 # End of https://www.toptal.com/developers/gitignore/api/dotenv
+/docker-data
