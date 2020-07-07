@@ -1,9 +1,9 @@
 module.exports = {
-  user: 'User',
+  recipe_ingredient: 'RecipeIngredient',
   recipe: 'Recipe',
+  user: 'User',
   meal_type: 'MealType',
   difficulty: 'Difficulty',
-  recipe_ingredient: 'RecipeIngredient',
   ingredient: 'Ingredient',
   measurement: 'Measurement',
 };
