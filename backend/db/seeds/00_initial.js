@@ -1,9 +1,9 @@
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-// eslint-disable-next-line no-unused-vars
 const Knex = require('knex');
 
 const tableNames = require('../../src/constants/tableNames');
+const measurements = require('../../src/constants/measurements');
 
 /**
  * @param {Knex} knex
@@ -24,4 +24,6 @@ exports.seed = async (knex) => {
   if (process.env.NODE_ENV !== 'test') {
     console.log('User created:', { password }, createdUser);
   }
+
+  const insertedMeasurements = await knex(tableNames.measurement).insert(measurements, '*');
 };
