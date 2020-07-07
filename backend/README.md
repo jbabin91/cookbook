@@ -22,8 +22,8 @@ Deleted At - datetime
 - [x] Meal Type
 - [x] Difficulty
 - [x] Ingredients
-- [ ] Recipes
-- [ ] Recipe Ingredient
+- [x] Recipes
+- [x] Recipe Ingredient
 
 ## CRUD
 

@@ -40,15 +40,17 @@ exports.up = async (knex) => {
     table.double('prepTime').notNullable();
     table.double('cookTime').notNullable();
     table.double('rating').notNullable();
+    table.double('servingSize').notNullable();
+    table.text('recipePreparation').notNullable();
     references(table, 'MealType', false);
     references(table, 'Difficulty', false);
-    references(table, 'User', false, 'GUID');
+    references(table, 'User', false);
     addDefaultColumns(table);
   });
 
   await knex.schema.createTable(tableNames.recipe_ingredient, (table) => {
     table.increments().notNullable();
-    table.double('amount').notNullable();
+    table.double('amount');
     references(table, 'Recipe', false);
     references(table, 'Ingredient', false);
     references(table, 'Measurement', false);
