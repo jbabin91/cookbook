@@ -21,16 +21,11 @@ Deleted At - datetime
 - [x] Measurement
 - [x] Meal Type
 - [x] Difficulty
-- [x] Ingredient
-- [ ] Recipe
+- [x] Ingredients
+- [ ] Recipes
 - [ ] Recipe Ingredient
 
 ## CRUD
-
-- Create
-- Read
-- Update
-- Delete
 
 - [ ] User
 - [ ] Recipe
