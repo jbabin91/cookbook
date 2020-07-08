@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "User",
+  "description": "The User",
+  "required": ["email", "password"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "type": "integer",
+      "title": "The database ID of the user."
+    },
+    "GUID": {
+      "$id": "#/properties/GUID",
+      "type": "string",
+      "title": "The GUID of the user."
+    },
+    "email": {
+      "$id": "#/properties/email",
+      "type": "string",
+      "title": "The users email. Must be unique.",
+      "examples": ["test@test.com"]
+    },
+    "firstName": {
+      "$id": "#/properties/firstName",
+      "type": "string",
+      "title": "The user's first name.",
+      "examples": ["Test"]
+    },
+    "lastName": {
+      "$id": "#/properties/lastName",
+      "type": "string",
+      "title": "The user's last name.",
+      "examples": ["Test"]
+    },
+    "phoneNumber": {
+      "$id": "#/properties/phoneNumber",
+      "type": "string",
+      "title": "The user's phone number.",
+      "examples": ["6023348734"]
+    },
+    "password": {
+      "$id": "#/properties/password",
+      "type": "string",
+      "title": "The users hashed password."
+    },
+    "created_at": {
+      "$id": "#/properties/created_at",
+      "type": "string",
+      "title": "The creation date of the user."
+    },
+    "updated_at": {
+      "$id": "#/properties/updated_at",
+      "type": "string",
+      "title": "The date the user was last updated."
+    }
+  }
+}

@@ -27,7 +27,8 @@ Deleted At - datetime
 
 ## CRUD
 
-- [ ] User
+- [x] User
+- [x] Auth
 - [ ] Recipe
 - [ ] Recipe Ingredient
 - [ ] Ingredient

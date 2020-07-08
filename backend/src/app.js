@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const compression = require('compression');
 const helmet = require('helmet');
 
+const api = require('./api');
 const middleware = require('./middleware');
 const project = require('./constants/project');
 
@@ -18,6 +19,8 @@ app.get('/', (req, res) => {
     message: project.message,
   });
 });
+
+app.use('/api/v1', api);
 
 app.use(middleware.notFound);
 app.use(middleware.errorHandler);
