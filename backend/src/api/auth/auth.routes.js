@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const jwt = require('../../lib/jwt');
 const User = require('../users/users.model');
+const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
 
@@ -25,11 +26,6 @@ const schema = yup.object().shape({
     .required(),
 });
 
-const errorMessages = {
-  invalidLogin: 'Invalid login.',
-  emailInUse: 'Email in use.',
-};
-
 router.post('/signup', async (req, res, next) => {
   const { email, firstName, lastName, phoneNumber, password } = req.body;
 
@@ -47,8 +43,8 @@ router.post('/signup', async (req, res, next) => {
     const existingUser = await User.query().where({ email }).first();
 
     if (existingUser) {
-      const error = new Error(errorMessages.emailInUse);
-      res.status(403);
+      const error = new Error(errorMessages.EmailInUse);
+      res.status(errorTypes.ForbiddenError);
       throw error;
     }
 
@@ -93,16 +89,16 @@ router.post('/signin', async (req, res, next) => {
     const user = await User.query().where({ email }).first();
 
     if (!user) {
-      const error = new Error(errorMessages.invalidLogin);
-      res.status(403);
+      const error = new Error(errorMessages.InvalidLogin);
+      res.status(errorTypes.ForbiddenError);
       throw error;
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      const error = new Error(errorMessages.invalidLogin);
-      res.status(403);
+      const error = new Error(errorMessages.InvalidLogin);
+      res.status(errorTypes.ForbiddenError);
       throw error;
     }
 

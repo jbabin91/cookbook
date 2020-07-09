@@ -27,13 +27,54 @@ Deleted At - datetime
 
 ## CRUD
 
-- [x] User
-- [x] Auth
-- [ ] Recipe
-- [ ] Recipe Ingredient
-- [ ] Ingredient
-- [ ] Measurement
-- [ ] Meal Type
+### User
+
+- [x] Create User
+- [x] GET User
+- [ ] UPDATE User
+- [ ] DELETE User
+
+### Measurement
+
+- [ ] Create Measurement
+- [x] GET Measurement
+- [ ] UPDATE Measurement
+- [ ] DELETE Measurement
+
+### Meal Type
+
+- [ ] Create Meal Type
+- [x] GET Meal Type
+- [ ] UPDATE Meal Type
+- [ ] DELETE Meal Type
+
+### Difficulty
+
+- [ ] Create Difficulty
+- [x] GET Difficulty
+- [ ] UPDATE Difficulty
+- [ ] DELETE Difficulty
+
+### Ingredient
+
+- [ ] Create Ingredient
+- [x] GET Ingredient
+- [ ] UPDATE Ingredient
+- [ ] DELETE Ingredient
+
+### Recipe
+
+- [ ] Create Recipe
+- [x] GET Recipe
+- [ ] UPDATE Recipe
+- [ ] DELETE Recipe
+
+### Recipe Ingredient
+
+- [ ] Create Recipe Ingredient
+- [x] GET Recipe Ingredient
+- [ ] UPDATE Recipe Ingredient
+- [ ] DELETE Recipe Ingredient
 
 ## STRETCH
 

@@ -1,6 +1,6 @@
 const express = require('express');
 
-const User = require('./users.model');
+const Difficulty = require('./difficulty.model');
 const jwt = require('../../lib/jwt');
 const verifyToken = require('../../../src/middleware/verifyToken');
 
@@ -15,11 +15,8 @@ router.get('/', verifyToken, async (req, res, next) => {
     if (error) {
       throw error;
     }
-
-    const users = await User.query()
-      .select('id', 'GUID', 'email', 'firstName', 'lastName', 'created_at', 'updated_at')
-      .where('deleted_at', null);
-    res.json(users);
+    const difficulties = await Difficulty.query().select('id', 'name', 'created_at', 'updated_at').where('deleted_at', null);
+    res.json(difficulties);
   } catch (err) {
     next(err);
   }

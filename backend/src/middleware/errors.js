@@ -1,9 +1,13 @@
 const errorTypes = {
-  ValidationError: 422,
+  ForbiddenError: 403,
   UniqueViolationError: 409,
+  ValidationError: 422,
 };
 
 const errorMessages = {
+  EmailInUse: 'Email in use.',
+  ForbiddenError: "You don't have permission to access this url.",
+  InvalidLogin: 'Invalid login.',
   UniqueViolationError: 'Already exists.',
 };
 
@@ -27,4 +31,6 @@ function errorHandler(error, req, res, next) {
 module.exports = {
   notFound,
   errorHandler,
+  errorTypes,
+  errorMessages,
 };

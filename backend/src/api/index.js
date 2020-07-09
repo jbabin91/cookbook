@@ -3,6 +3,9 @@ const express = require('express');
 const project = require('../constants/project');
 
 const auth = require('./auth/auth.routes');
+const difficulty = require('./difficulty/difficulty.routes');
+const mealType = require('./mealType/mealType.routes');
+const measurement = require('./measurement/measurement.routes');
 const users = require('./users/users.routes');
 
 const router = express.Router();
@@ -14,6 +17,9 @@ router.get('/', (req, res) => {
 });
 
 router.use('/auth', auth);
+router.use('/difficulty', difficulty);
+router.use('/mealType', mealType);
+router.use('/measurement', measurement);
 router.use('/users', users);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const express = require('express');
 
-const User = require('./users.model');
+const Measurement = require('./measurement.model');
 const jwt = require('../../lib/jwt');
 const verifyToken = require('../../../src/middleware/verifyToken');
 
@@ -16,10 +16,10 @@ router.get('/', verifyToken, async (req, res, next) => {
       throw error;
     }
 
-    const users = await User.query()
-      .select('id', 'GUID', 'email', 'firstName', 'lastName', 'created_at', 'updated_at')
+    const measurements = await Measurement.query()
+      .select('id', 'type', 'unit', 'abbreviation', 'created_at', 'updated_at')
       .where('deleted_at', null);
-    res.json(users);
+    res.json(measurements);
   } catch (err) {
     next(err);
   }
