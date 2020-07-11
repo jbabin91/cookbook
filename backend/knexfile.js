@@ -22,6 +22,7 @@ module.exports = {
       database: process.env.POSTGRES_TEST_DB,
       user: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
+      port: process.env.POSTGRES_TEST_PORT,
     },
     migrations: {
       directory: './db/migrations',
@@ -29,5 +30,16 @@ module.exports = {
     seeds: {
       directory: './db/seeds',
     },
+  },
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    migrations: {
+      directory: './db/migrations',
+    },
+    seeds: {
+      directory: './db/seeds/production',
+    },
+    useNullAsDefault: true,
   },
 };

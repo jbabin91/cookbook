@@ -9,7 +9,8 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "test": "jest"
+    "test": "jest",
+    "test:debug": "nodemon --inspect node_modules/.bin/jest --watch --runInBand"
   },
   "author": "Jace Babin <jbabin91@gmail.com>",
   "license": "MIT",

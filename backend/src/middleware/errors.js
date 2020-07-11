@@ -1,13 +1,16 @@
 const errorTypes = {
   ForbiddenError: 403,
+  UnAuthorizedError: 401,
   UniqueViolationError: 409,
   ValidationError: 422,
 };
 
 const errorMessages = {
+  BadToken: 'Failed to authenticate token',
   EmailInUse: 'Email in use.',
   ForbiddenError: "You don't have permission to access this url.",
   InvalidLogin: 'Invalid login.',
+  NoToken: 'No Token',
   UniqueViolationError: 'Already exists.',
 };
 
