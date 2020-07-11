@@ -1,22 +1,19 @@
-var app = require('../app');
-var request = require('supertest')(app);
+var superagent = require('superagent');
+var agent = superagent.agent();
 
-function loginUser() {
-  return function (done) {
-    request
-      .post('/api/v1/auth/signin')
-      .send({
-        email: 'jbabin91@gmail.com',
-        password: 'Test123!',
-      })
-      .expect(200)
-      .end(onResponse);
+var theAccount = {
+  email: 'jbabin91@gmail.com',
+  password: 'Test123!',
+};
 
-    function onResponse(err, res) {
-      if (err) return err;
-      return res.body.token;
-    }
-  };
-}
-
-module.exports = loginUser;
+exports.login = function (request, done) {
+  request
+    .post('/api/v1/signin')
+    .send(theAccount)
+    .end(function (err, res) {
+      if (err) {
+        throw err;
+      }
+      done(agent);
+    });
+};
