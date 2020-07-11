@@ -9,7 +9,7 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "test": "mocha --timeout 10000 --bail",
+    "test": "mocha",
     "test:debug": "nodemon --inspect node_modules/.bin/jest --watch --runInBand"
   },
   "author": "Jace Babin <jbabin91@gmail.com>",
