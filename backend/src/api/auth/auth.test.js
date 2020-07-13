@@ -1,6 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();

@@ -1,6 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -26,9 +24,6 @@ const setupMock = (status, body) => {
 };
 
 const initMock = async () => {
-  mock.app.use(bodyParser.urlencoded({ extended: false }));
-  mock.app.use(bodyParser.json());
-  mock.app.use(cors());
   mock.app.get('*', (req, res) => {
     mock.requests.push(req);
     res.status(mock.status).send(mock.responseBody);
