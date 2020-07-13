@@ -1,5 +1,3 @@
-let User = require('../src/api/users/users.model');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,10 +8,11 @@ const faker = require('faker');
 
 require('dotenv').config();
 
-const SERVER_URL = process.env.APP_URL || 'http://localhost:3000';
-const MOCK_SERVER_PORT = process.env.MOCK_SERVER_PORT || 3002;
-
 chai.use(chaiHttp);
+
+const { mock, setupMock, initMock, teardownMock } = require('../../../test/testFunctions');
+
+const SERVER_URL = process.env.APP_URL || 'http://localhost:3000';
 
 const TEST_USER = {
   email: faker.internet.email(),
@@ -21,38 +20,6 @@ const TEST_USER = {
   lastName: faker.name.lastName(),
   phoneNumber: faker.phone.phoneNumber(),
   password: 'Test123!',
-};
-
-const mock = {
-  app: express(),
-  server: null,
-  requests: [],
-  status: 404,
-  responseBody: {},
-};
-
-const setupMock = (status, body) => {
-  mock.status = status;
-  mock.responseBody = body;
-};
-
-const initMock = async () => {
-  mock.app.use(bodyParser.urlencoded({ extended: false }));
-  mock.app.use(bodyParser.json());
-  mock.app.use(cors());
-  mock.app.get('*', (req, res) => {
-    mock.requests.push(req);
-    res.status(mock.status).send(mock.responseBody);
-  });
-
-  mock.server = await mock.app.listen(MOCK_SERVER_PORT);
-};
-
-const teardownMock = () => {
-  if (mock.server) {
-    mock.server.close();
-    delete mock.server;
-  }
 };
 
 let token;

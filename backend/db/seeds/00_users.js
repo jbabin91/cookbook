@@ -6,6 +6,18 @@ const { v4: uuidv4 } = require('uuid');
 
 const tableNames = require('../../src/constants/tableNames');
 
+const createTestUser = async () => {
+  const user = {
+    GUID: await uuidv4(),
+    email: 'test@test.com',
+    firstName: 'test',
+    lastName: 'user',
+    phoneNumber: '224-453-6654',
+    password: await bcrypt.hash('Test123!', 12),
+  };
+  return user;
+};
+
 const createFakeUser = async () => {
   const password = crypto.randomBytes(15).toString('hex');
   const user = {
@@ -23,7 +35,7 @@ const createFakeUser = async () => {
  * @param {Knex} knex
  */
 exports.seed = async (knex) => {
-  const user = await createFakeUser();
+  const user = await createTestUser();
 
   const [createdUser] = await knex(tableNames.user)
     .del()
