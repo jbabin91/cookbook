@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "RecipeIngredients",
+  "description": "The schema for Recipe Ingredient model",
+  "required": ["id"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "type": "integer",
+      "title": "The database ID of the RecipeIngredients."
+    },
+    "amount": {
+      "$id": "#/properties/amount",
+      "type": "number",
+      "title": "The amount of an ingredient on RecipeIngredients."
+    },
+    "Recipe_id": {
+      "$id": "#/properties/Recipe_id",
+      "type": "integer",
+      "title": "The FK Recipe_id for RecipeIngredients."
+    },
+    "Ingredient_id": {
+      "$id": "#/properties/Ingredient_id",
+      "type": "integer",
+      "title": "The FK Ingredient_id for RecipeIngredients."
+    },
+    "Measurement_id": {
+      "$id": "#/properties/Measurement_id",
+      "type": "integer",
+      "title": "The FK Measurement_id RecipeIngredients."
+    },
+    "created_at": {
+      "$id": "#/properties/created_at",
+      "type": "string",
+      "title": "The creation date of the RecipeIngredients."
+    },
+    "updated_at": {
+      "$id": "#/properties/updated_at",
+      "type": "string",
+      "title": "The date the RecipeIngredients was last updated."
+    }
+  }
+}

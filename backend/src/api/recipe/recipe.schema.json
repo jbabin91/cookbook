@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Recipe",
+  "description": "The schema for Recipe model",
+  "required": ["id"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "type": "integer",
+      "title": "The database ID of the Recipe."
+    },
+    "title": {
+      "$id": "#/properties/title",
+      "type": "string",
+      "title": "The title of the Recipe."
+    },
+    "prepTime": {
+      "$id": "#/properties/prepTime",
+      "type": "number",
+      "title": "The preparation time of the Recipe."
+    },
+    "cookTime": {
+      "$id": "#/properties/cookTime",
+      "type": "number",
+      "title": "The cook time of the Recipe."
+    },
+    "rating": {
+      "$id": "#/properties/rating",
+      "type": "number",
+      "title": "The rating of the Recipe."
+    },
+    "servingSize": {
+      "$id": "#/properties/servingSize",
+      "type": "number",
+      "title": "The serving size of the Recipe."
+    },
+    "recipePreparation": {
+      "$id": "#/properties/recipePreparation",
+      "type": "string",
+      "title": "The preparation steps of the Recipe."
+    },
+    "MealType_id": {
+      "$id": "#/properties/MealType_id",
+      "type": "integer",
+      "title": "The FK for MealType_id of the Recipe."
+    },
+    "Difficulty_id": {
+      "$id": "#/properties/Difficulty_id",
+      "type": "integer",
+      "title": "The FK for Difficulty_id of the Recipe."
+    },
+    "User_id": {
+      "$id": "#/properties/User_id",
+      "type": "string",
+      "title": "The FK for User_id of the Recipe."
+    },
+    "created_at": {
+      "$id": "#/properties/created_at",
+      "type": "string",
+      "title": "The creation date of the Recipe."
+    },
+    "updated_at": {
+      "$id": "#/properties/updated_at",
+      "type": "string",
+      "title": "The date the Recipe was last updated."
+    }
+  }
+}

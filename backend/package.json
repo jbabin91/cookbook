@@ -26,6 +26,8 @@
     "objection": "^2.2.1",
     "papaparse": "^5.2.0",
     "pg": "^8.2.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
     "uuid": "^8.2.0",
     "yup": "^0.29.1"
   },
