@@ -8,7 +8,7 @@ Model.knex(db);
 
 class RecipeIngredient extends Model {
   static get tableName() {
-    return tableNames.recipeIngredient;
+    return tableNames.recipe_ingredient;
   }
 
   static get jsonSchema() {

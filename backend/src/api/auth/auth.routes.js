@@ -26,6 +26,34 @@ const schema = yup.object().shape({
     .required(),
 });
 
+/**
+ * @swagger
+ * tags:
+ *  name: Auth
+ *  description: Auth management
+ */
+
+/**
+ * @swagger
+ * path:
+ *  /auth/signup:
+ *    post:
+ *      summary: Creates a new user
+ *      tags: [Auth][Create][User]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      responses:
+ *        "200":
+ *          description: A user schema
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ */
 router.post('/signup', async (req, res, next) => {
   const { email, firstName, lastName, phoneNumber, password } = req.body;
 
@@ -82,6 +110,27 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * path:
+ *  /auth/signin:
+ *    post:
+ *      summary: Create a new user
+ *      tags: [Users]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      responses:
+ *        "200":
+ *          description: A user schema
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ */
 router.post('/signin', async (req, res, next) => {
   const { email, password } = req.body;
 

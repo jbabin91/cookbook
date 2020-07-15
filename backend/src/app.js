@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const api = require('./api');
 const middleware = require('./middleware/errors');
 const project = require('./constants/project');
+const swagger = require('./swagger/index');
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1', api);
+
+app.use('/docs', swagger);
 
 app.use(middleware.notFound);
 app.use(middleware.errorHandler);
