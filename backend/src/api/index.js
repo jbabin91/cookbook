@@ -8,7 +8,7 @@ const mealType = require('./mealType/mealType.routes');
 const measurement = require('./measurement/measurement.routes');
 const recipe = require('./recipe/recipe.routes');
 const recipeIngredient = require('./recipeIngredient/recipeIngredient.routes');
-const users = require('./users/users.routes');
+const user = require('./user/user.routes');
 
 const router = express.Router();
 
@@ -24,6 +24,6 @@ router.use('/mealType', mealType);
 router.use('/measurement', measurement);
 router.use('/recipe', recipe);
 router.use('/recipeIngredient', recipeIngredient);
-router.use('/users', users);
+router.use('/user', user);
 
 module.exports = router;

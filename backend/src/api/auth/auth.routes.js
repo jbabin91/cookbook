@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 const jwt = require('../../lib/jwt');
-const User = require('../users/users.model');
+const User = require('../user/user.model');
 const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
@@ -28,31 +28,60 @@ const schema = yup.object().shape({
 
 /**
  * @swagger
- * tags:
- *  name: Auth
- *  description: Auth management
- */
-
-/**
- * @swagger
- * path:
- *  /auth/signup:
- *    post:
- *      summary: Creates a new user
- *      tags: [Auth][Create][User]
+ * paths:
+ *  /auth/signup:         # path of the user from your endpoint
+ *    post:              # endpoint request type (put request)
+ *      summary: Signs up a new user
+ *      tags: [Auth]
  *      requestBody:
  *        required: true
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/User'
+ *              $ref: '#/definitions/signup'
  *      responses:
- *        "200":
- *          description: A user schema
+ *        200:
+ *          description: An object with a user object and a token
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/definitions/signupResponse'
+ *        403:
+ *          description: Error when submitting a new user
+ * definitions:        # Schema definition for the request body
+ *   signup:
+ *    type: object
+ *    properties:
+ *      email:
+ *        type: string
+ *      firstName:
+ *        type: string
+ *      lastName:
+ *        type: string
+ *      phoneNumber:
+ *        type: string
+ *      password:
+ *        type: string
+ *   signupResponse:
+ *    type: object
+ *    properties:
+ *      user:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: integer
+ *          GUID:
+ *            type: string
+ *          email:
+ *            type: string
+ *          firstName:
+ *            type: string
+ *          lastName:
+ *            type: string
+ *          phoneNumber:
+ *            type: string
+ *      token:
+ *        type: string
  */
 router.post('/signup', async (req, res, next) => {
   const { email, firstName, lastName, phoneNumber, password } = req.body;
@@ -116,20 +145,48 @@ router.post('/signup', async (req, res, next) => {
  *  /auth/signin:
  *    post:
  *      summary: Create a new user
- *      tags: [Users]
+ *      tags: [Auth]
  *      requestBody:
  *        required: true
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/User'
+ *              $ref: '#/definitions/signin'
  *      responses:
  *        "200":
  *          description: A user schema
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/definitions/signinResponse'
+ * definitions:
+ *   signin:
+ *     type: object
+ *     properties:
+ *       email:
+ *         type: string
+ *       password:
+ *         type: string
+ *   signinResponse:
+ *     type: object
+ *     properties:
+ *       user:
+ *         type: object
+ *         properties:
+ *           id:
+ *             type: integer
+ *           GUID:
+ *             type: string
+ *           email:
+ *             type: string
+ *           firstName:
+ *             type: string
+ *           lastName:
+ *             type: string
+ *           phoneNumber:
+ *             type: string
+ *       token:
+ *         type: string
  */
 router.post('/signin', async (req, res, next) => {
   const { email, password } = req.body;

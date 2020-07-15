@@ -38,12 +38,12 @@ describe('Users', () => {
 
   beforeEach(() => (mock.requests = []));
 
-  describe('GET /api/v1/users', () => {
+  describe('GET /api/v1/user', () => {
     it('should get an array of users', (done) => {
       setupMock(200, { result: 'valid' });
       chai
         .request(SERVER_URL)
-        .get('/api/v1/users')
+        .get('/api/v1/user')
         .set({ authorization: `Bearer ${token}` })
         .end((err, res) => {
           if (err) throw err;

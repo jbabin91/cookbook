@@ -2,11 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const compression = require('compression');
 const helmet = require('helmet');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const api = require('./api');
 const middleware = require('./middleware/errors');
 const project = require('./constants/project');
-const swagger = require('./swagger/index');
 
 const app = express();
 
@@ -23,7 +24,40 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1', api);
 
-app.use('/docs', swagger);
+// Swagger set up
+const options = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Cookbook API',
+      version: '0.0.1',
+      description: 'A project to build a cookbook application',
+      license: {
+        name: 'MIT',
+        url: 'https://choosealicense.com/licenses/mit/',
+      },
+      contact: {
+        name: 'Swagger',
+        url: 'https://swagger.io',
+        email: 'Info@SmartBear.com',
+      },
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000/api/v1',
+      },
+    ],
+  },
+  apis: ['**/*.*.js'],
+};
+
+const swaggerUiOptions = {
+  explorer: true,
+};
+
+const specs = swaggerJSDoc(options);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
 
 app.use(middleware.notFound);
 app.use(middleware.errorHandler);

@@ -1,18 +1,18 @@
 const express = require('express');
 
-const Recipe = require('./Recipe.model');
+const User = require('./user.model');
 const jwt = require('../../lib/jwt');
-const verifyToken = require('../../../src/middleware/verifyToken');
+const verifyToken = require('../../middleware/verifyToken');
 
 const router = express.Router();
 
 /**
  * @swagger
  * paths:
- *  /recipe:         # path of the user from your endpoint
+ *  /recipeIngredient:         # path of the user from your endpoint
  *    post:              # endpoint request type (put request)
  *      summary: Signs up a new user
- *      tags: [Recipe]
+ *      tags: [User]
  *      requestBody:
  *        required: true
  *        content:
@@ -73,23 +73,10 @@ router.get('/', verifyToken, async (req, res, next) => {
       throw error;
     }
 
-    const recipes = await Recipe.query()
-      .select(
-        'id',
-        'title',
-        'prepTime',
-        'cookTime',
-        'rating',
-        'servingSize',
-        'recipePreparation',
-        'MealType_id',
-        'Difficulty_id',
-        'User_id',
-        'created_at',
-        'updated_at',
-      )
+    const users = await User.query()
+      .select('id', 'GUID', 'email', 'firstName', 'lastName', 'created_at', 'updated_at')
       .where('deleted_at', null);
-    res.json(recipes);
+    res.json(users);
   } catch (err) {
     next(err);
   }

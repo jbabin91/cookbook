@@ -2,7 +2,7 @@ const { Model } = require('objection');
 const db = require('../../db');
 
 const tableNames = require('../../constants/tableNames');
-const schema = require('./users.schema.json');
+const schema = require('./user.schema.json');
 
 Model.knex(db);
 
