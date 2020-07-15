@@ -42,6 +42,15 @@ const options = {
         email: 'Info@SmartBear.com',
       },
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
     servers: [
       {
         url: 'http://localhost:3000/api/v1',

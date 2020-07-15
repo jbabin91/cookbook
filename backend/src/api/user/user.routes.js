@@ -9,59 +9,46 @@ const router = express.Router();
 /**
  * @swagger
  * paths:
- *  /recipeIngredient:         # path of the user from your endpoint
- *    post:              # endpoint request type (put request)
- *      summary: Signs up a new user
- *      tags: [User]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/definitions/signup'
- *      responses:
- *        200:
- *          description: An object with a user object and a token
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/definitions/signupResponse'
- *        403:
- *          description: Error when submitting a new user
- * definitions:        # Schema definition for the request body
- *   signup:
- *    type: object
- *    properties:
+ *  /user:
+ *   get:
+ *    summary: Gets all users
+ *    tags: [User]
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *     200:
+ *      description: An array of user objects
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/users'
+ *     403:
+ *      description: You don't have permission to access this url.
+ *
+ * definitions:
+ *   users:
+ *    type: array
+ *    items:
+ *     $ref: '#/definitions/user'
+ *   user:
+ *     type: object
+ *     properties:
+ *      id:
+ *       type: integer
+ *      GUID:
+ *       type: string
  *      email:
- *        type: string
+ *       type: string
  *      firstName:
- *        type: string
+ *       type: string
  *      lastName:
- *        type: string
+ *       type: string
  *      phoneNumber:
- *        type: string
- *      password:
- *        type: string
- *   signupResponse:
- *    type: object
- *    properties:
- *      user:
- *        type: object
- *        properties:
- *          id:
- *            type: integer
- *          GUID:
- *            type: string
- *          email:
- *            type: string
- *          firstName:
- *            type: string
- *          lastName:
- *            type: string
- *          phoneNumber:
- *            type: string
- *      token:
- *        type: string
+ *       type: string
+ *      created_at:
+ *       type: string
+ *      updated_at:
+ *       type: string
  */
 router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
@@ -74,9 +61,77 @@ router.get('/', verifyToken, async (req, res, next) => {
     }
 
     const users = await User.query()
-      .select('id', 'GUID', 'email', 'firstName', 'lastName', 'created_at', 'updated_at')
+      .select('id', 'GUID', 'email', 'firstName', 'lastName', 'phoneNumber', 'created_at', 'updated_at')
       .where('deleted_at', null);
     res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /user/{id}:
+ *   get:
+ *    summary: Get a user by id
+ *    tags: [User]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: ID of user
+ *    responses:
+ *     200:
+ *      description: A user objects
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/user'
+ *     403:
+ *      description: You don't have permission to access this url.
+ *
+ * definitions:
+ *   user:
+ *    type: object
+ *    properties:
+ *     id:
+ *      type: integer
+ *     GUID:
+ *      type: string
+ *     email:
+ *      type: string
+ *     firstName:
+ *      type: string
+ *     lastName:
+ *      type: string
+ *     phoneNumber:
+ *      type: string
+ *     created_at:
+ *      type: string
+ *     updated_at:
+ *      type: string
+ */
+router.get('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    const error = await jwt.verify(token);
+
+    if (error) {
+      throw error;
+    }
+
+    const users = await User.query()
+      .select('id', 'GUID', 'email', 'firstName', 'lastName', 'phoneNumber', 'created_at', 'updated_at')
+      .where('id', req.params.id)
+      .where('deleted_at', null);
+    const [first] = users;
+    res.json(first);
   } catch (err) {
     next(err);
   }

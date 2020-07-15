@@ -9,59 +9,44 @@ const router = express.Router();
 /**
  * @swagger
  * paths:
- *  /recipeIngredient:         # path of the user from your endpoint
- *    post:              # endpoint request type (put request)
- *      summary: Signs up a new user
- *      tags: [RecipeIngredient]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/definitions/signup'
- *      responses:
- *        200:
- *          description: An object with a user object and a token
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/definitions/signupResponse'
- *        403:
- *          description: Error when submitting a new user
- * definitions:        # Schema definition for the request body
- *   signup:
- *    type: object
- *    properties:
- *      email:
- *        type: string
- *      firstName:
- *        type: string
- *      lastName:
- *        type: string
- *      phoneNumber:
- *        type: string
- *      password:
- *        type: string
- *   signupResponse:
- *    type: object
- *    properties:
- *      user:
- *        type: object
- *        properties:
- *          id:
- *            type: integer
- *          GUID:
- *            type: string
- *          email:
- *            type: string
- *          firstName:
- *            type: string
- *          lastName:
- *            type: string
- *          phoneNumber:
- *            type: string
- *      token:
- *        type: string
+ *  /recipeIngredient:
+ *   get:
+ *    summary: Gets all ingredients for all recipes
+ *    tags: [RecipeIngredient]
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *     200:
+ *      description: An object with a user object and a token
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeIngredients'
+ *     403:
+ *      description: You don't have permission to access this url.
+ *
+ * definitions:
+ *  recipeIngredients:
+ *   type: array
+ *   items:
+ *    $ref: '#/definitions/recipeIngredient'
+ *  recipeIngredient:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    amount:
+ *     type: number
+ *    Recipe_id:
+ *     type: integer
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
  */
 router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
@@ -86,66 +71,50 @@ router.get('/', verifyToken, async (req, res, next) => {
  * @swagger
  * paths:
  *  /recipeIngredient/{id}:
- *    get:
- *      summary: Gets ingredients for a single recipe
- *      tags: [RecipeIngredient]
- *      parameters:
- *        - in: header
- *          name: authorization
- *          schema:
- *            type: string
- *          required: true
- *          description: Bearer <token>
- *        - in: path
- *          name: id
- *          schema:
- *            type: integer
- *          required: true
- *          description: Numeric ID of the recipe to associate the recipeIngredient
- *      responses:
- *        200:
- *          description: An object with a user object and a token
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/definitions/signupResponse'
- *        403:
- *          description: You don't have permission to access this url.
+ *   get:
+ *    summary: Gets ingredients for a single recipe
+ *    tags: [RecipeIngredient]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: Numeric ID of the recipe to associate the recipeIngredient
+ *    responses:
+ *     200:
+ *      description: An object with a user object and a token
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeIngredients'
+ *     403:
+ *      description: You don't have permission to access this url.
  *
  * definitions:
- *   signup:
- *    type: object
- *    properties:
- *      email:
- *        type: string
- *      firstName:
- *        type: string
- *      lastName:
- *        type: string
- *      phoneNumber:
- *        type: string
- *      password:
- *        type: string
- *   signupResponse:
- *    type: object
- *    properties:
- *      user:
- *        type: object
- *        properties:
- *          id:
- *            type: integer
- *          GUID:
- *            type: string
- *          email:
- *            type: string
- *          firstName:
- *            type: string
- *          lastName:
- *            type: string
- *          phoneNumber:
- *            type: string
- *      token:
- *        type: string
+ *  recipeIngredients:
+ *   type: array
+ *   items:
+ *    $ref: '#/definitions/recipeIngredient'
+ *  recipeIngredient:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    amount:
+ *     type: number
+ *    Recipe_id:
+ *     type: integer
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
  */
 router.get('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
