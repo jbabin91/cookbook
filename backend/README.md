@@ -27,10 +27,15 @@ Deleted At - datetime
 
 ## CRUD
 
+## Auth
+
+- [x] User Sign Up
+- [x] User Sign In
+
 ### User
 
-- [x] Create User
 - [x] GET User
+- [x] Get User By ID
 - [ ] UPDATE User
 - [ ] DELETE User
 
@@ -73,6 +78,64 @@ Deleted At - datetime
 
 - [ ] Create Recipe Ingredient
 - [x] GET Recipe Ingredient
+- [x] GET Recipe Ingredients By RecipeID
+- [ ] UPDATE Recipe Ingredient
+- [ ] DELETE Recipe Ingredient
+
+## Swagger
+
+## Auth Docs
+
+- [x] User Sign Up
+- [x] User Sign In
+
+### User Docs
+
+- [x] GET User
+- [x] Get User By ID
+- [ ] UPDATE User
+- [ ] DELETE User
+
+### Measurement Docs
+
+- [ ] Create Measurement
+- [x] GET Measurement
+- [ ] UPDATE Measurement
+- [ ] DELETE Measurement
+
+### Meal Type Docs
+
+- [ ] Create Meal Type
+- [x] GET Meal Type
+- [ ] UPDATE Meal Type
+- [ ] DELETE Meal Type
+
+### Difficulty Docs
+
+- [ ] Create Difficulty
+- [x] GET Difficulty
+- [ ] UPDATE Difficulty
+- [ ] DELETE Difficulty
+
+### Ingredient Docs
+
+- [ ] Create Ingredient
+- [x] GET Ingredient
+- [ ] UPDATE Ingredient
+- [ ] DELETE Ingredient
+
+### Recipe Docs
+
+- [ ] Create Recipe
+- [x] GET Recipe
+- [ ] UPDATE Recipe
+- [ ] DELETE Recipe
+
+### Recipe Ingredient Docs
+
+- [ ] Create Recipe Ingredient
+- [x] GET Recipe Ingredient
+- [x] GET Recipe Ingredients By RecipeID
 - [ ] UPDATE Recipe Ingredient
 - [ ] DELETE Recipe Ingredient
 
