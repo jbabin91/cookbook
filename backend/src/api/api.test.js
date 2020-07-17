@@ -4,7 +4,7 @@ const should = chai.should();
 
 require('dotenv').config();
 
-const { mock, setupMock, initMock, teardownMock } = require('../../test/testFunctions');
+const { mock, setupMock, initMock, teardownMock } = require('../test/testFunctions');
 const project = require('../constants/project');
 
 chai.use(chaiHttp);

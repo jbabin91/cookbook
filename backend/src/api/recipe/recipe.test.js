@@ -6,7 +6,7 @@ require('dotenv').config();
 
 chai.use(chaiHttp);
 
-const { initMock, mock, setupMock, teardownMock } = require('../../../test/testFunctions');
+const { initMock, mock, setupMock, teardownMock } = require('../../test/testFunctions');
 
 const SERVER_URL = process.env.APP_URL || 'http://localhost:3000';
 
@@ -48,7 +48,7 @@ describe('Recipe', () => {
         .end((err, res) => {
           if (err) throw err;
           res.should.have.status(200);
-          res.body.should.be.a('array');
+          res.body.should.be.a('object');
           done();
         });
     });

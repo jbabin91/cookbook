@@ -7,7 +7,7 @@ require('dotenv').config();
 
 chai.use(chaiHttp);
 
-const { mock, setupMock, initMock, teardownMock } = require('../../../test/testFunctions');
+const { mock, setupMock, initMock, teardownMock } = require('../../test/testFunctions');
 
 const SERVER_URL = process.env.APP_URL || 'http://localhost:3000';
 
