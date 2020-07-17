@@ -3,7 +3,7 @@
   "type": "object",
   "title": "User",
   "description": "The User",
-  "required": ["email", "password"],
+  "required": [],
   "additionalProperties": false,
   "properties": {
     "id": {
@@ -45,6 +45,11 @@
       "type": "string",
       "title": "The users hashed password."
     },
+    "last_login": {
+      "$id": "#/properties/last_login",
+      "type": "string",
+      "title": "The last login date of the user."
+    },
     "created_at": {
       "$id": "#/properties/created_at",
       "type": "string",
@@ -54,6 +59,11 @@
       "$id": "#/properties/updated_at",
       "type": "string",
       "title": "The date the user was last updated."
+    },
+    "deleted_at": {
+      "$id": "#/properties/deleted_at",
+      "type": "string",
+      "title": "The date the user was deleted."
     }
   }
 }

@@ -24,31 +24,32 @@ const router = express.Router();
  *         $ref: '#/definitions/users'
  *     403:
  *      description: You don't have permission to access this url.
- *
  * definitions:
- *   users:
- *    type: array
- *    items:
- *     $ref: '#/definitions/user'
- *   user:
- *     type: object
- *     properties:
- *      id:
- *       type: integer
- *      GUID:
- *       type: string
- *      email:
- *       type: string
- *      firstName:
- *       type: string
- *      lastName:
- *       type: string
- *      phoneNumber:
- *       type: string
- *      created_at:
- *       type: string
- *      updated_at:
- *       type: string
+ *  users:
+ *   type: array
+ *   items:
+ *    $ref: '#/definitions/user'
+ *  user:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    GUID:
+ *     type: string
+ *    email:
+ *     type: string
+ *    firstName:
+ *     type: string
+ *    lastName:
+ *     type: string
+ *    phoneNumber:
+ *     type: string
+ *    last_login:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
  */
 router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
@@ -87,34 +88,33 @@ router.get('/', verifyToken, async (req, res, next) => {
  *       description: ID of user
  *    responses:
  *     200:
- *      description: A user objects
+ *      description: A user object
  *      content:
  *       application/json:
  *        schema:
  *         $ref: '#/definitions/user'
  *     403:
  *      description: You don't have permission to access this url.
- *
  * definitions:
- *   user:
- *    type: object
- *    properties:
- *     id:
- *      type: integer
- *     GUID:
- *      type: string
- *     email:
- *      type: string
- *     firstName:
- *      type: string
- *     lastName:
- *      type: string
- *     phoneNumber:
- *      type: string
- *     created_at:
- *      type: string
- *     updated_at:
- *      type: string
+ *  user:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    GUID:
+ *     type: string
+ *    email:
+ *     type: string
+ *    firstName:
+ *     type: string
+ *    lastName:
+ *     type: string
+ *    phoneNumber:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
  */
 router.get('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
@@ -126,12 +126,84 @@ router.get('/:id', verifyToken, async (req, res, next) => {
       throw error;
     }
 
-    const users = await User.query()
+    const user = await User.query()
       .select('id', 'GUID', 'email', 'firstName', 'lastName', 'phoneNumber', 'created_at', 'updated_at')
       .where('id', req.params.id)
-      .where('deleted_at', null);
-    const [first] = users;
-    res.json(first);
+      .where('deleted_at', null)
+      .first();
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /user/{id}:
+ *   delete:
+ *    summary: Deletes a user by id
+ *    tags: [User]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: ID of user
+ *    responses:
+ *     200:
+ *      description: A user object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/user'
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  user:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    GUID:
+ *     type: string
+ *    email:
+ *     type: string
+ *    firstName:
+ *     type: string
+ *    lastName:
+ *     type: string
+ *    phoneNumber:
+ *     type: string
+ *    last_login:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ *    deleted_at:
+ *     type: string
+ */
+router.delete('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    const error = await jwt.verify(token);
+
+    if (error) {
+      throw error;
+    }
+
+    const user = await User.query()
+      .where('id', req.params.id)
+      .update({ updated_at: 'now()', deleted_at: 'now()' })
+      .returning(['id', 'GUID', 'email', 'firstName', 'lastName', 'phoneNumber', 'last_login', 'created_at', 'updated_at', 'deleted_at'])
+      .first();
+
+    res.json({ user });
   } catch (err) {
     next(err);
   }

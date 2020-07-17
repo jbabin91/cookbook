@@ -37,7 +37,7 @@ Deleted At - datetime
 - [x] GET User
 - [x] Get User By ID
 - [ ] UPDATE User
-- [ ] DELETE User
+- [x] DELETE User (Soft delete adds a date to deleted_at)
 
 ### Measurement
 
@@ -94,7 +94,7 @@ Deleted At - datetime
 - [x] GET User
 - [x] Get User By ID
 - [ ] UPDATE User
-- [ ] DELETE User
+- [x] DELETE User
 
 ### Measurement Docs
 

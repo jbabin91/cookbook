@@ -29,59 +29,59 @@ const schema = yup.object().shape({
 /**
  * @swagger
  * paths:
- *  /auth/signup:         # path of the user from your endpoint
- *    post:              # endpoint request type (put request)
- *      summary: Signs up a new user
- *      tags: [Auth]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/definitions/signup'
- *      responses:
- *        200:
- *          description: An object with a user object and a token
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/definitions/signupResponse'
- *        403:
- *          description: Error when submitting a new user
- * definitions:        # Schema definition for the request body
- *   signup:
- *    type: object
- *    properties:
+ *  /auth/signup:
+ *   post:
+ *    summary: Signs up a new user
+ *    tags: [Auth]
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/signup'
+ *    responses:
+ *     200:
+ *      description: An object with a user object and a token
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/signupResponse'
+ *     403:
+ *      description: Error when submitting a new user
+ * definitions:
+ *  signup:
+ *   type: object
+ *   properties:
+ *    email:
+ *     type: string
+ *    firstName:
+ *     type: string
+ *    lastName:
+ *     type: string
+ *    phoneNumber:
+ *     type: string
+ *    password:
+ *     type: string
+ *  signupResponse:
+ *   type: object
+ *   properties:
+ *    user:
+ *     type: object
+ *     properties:
+ *      id:
+ *       type: integer
+ *      GUID:
+ *       type: string
  *      email:
- *        type: string
+ *       type: string
  *      firstName:
- *        type: string
+ *       type: string
  *      lastName:
- *        type: string
+ *       type: string
  *      phoneNumber:
- *        type: string
- *      password:
- *        type: string
- *   signupResponse:
- *    type: object
- *    properties:
- *      user:
- *        type: object
- *        properties:
- *          id:
- *            type: integer
- *          GUID:
- *            type: string
- *          email:
- *            type: string
- *          firstName:
- *            type: string
- *          lastName:
- *            type: string
- *          phoneNumber:
- *            type: string
- *      token:
- *        type: string
+ *       type: string
+ *    token:
+ *     type: string
  */
 router.post('/signup', async (req, res, next) => {
   const { email, firstName, lastName, phoneNumber, password } = req.body;
@@ -143,50 +143,52 @@ router.post('/signup', async (req, res, next) => {
  * @swagger
  * path:
  *  /auth/signin:
- *    post:
- *      summary: Create a new user
- *      tags: [Auth]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/definitions/signin'
- *      responses:
- *        "200":
- *          description: A user schema
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/definitions/signinResponse'
+ *   post:
+ *    summary: Create a new user
+ *    tags: [Auth]
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/signin'
+ *    responses:
+ *     "200":
+ *      description: A user schema
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/signinResponse'
  * definitions:
- *   signin:
+ *  signin:
+ *   type: object
+ *   properties:
+ *    email:
+ *     type: string
+ *    password:
+ *     type: string
+ *  signinResponse:
+ *   type: object
+ *   properties:
+ *    user:
  *     type: object
  *     properties:
- *       email:
- *         type: string
- *       password:
- *         type: string
- *   signinResponse:
- *     type: object
- *     properties:
- *       user:
- *         type: object
- *         properties:
- *           id:
- *             type: integer
- *           GUID:
- *             type: string
- *           email:
- *             type: string
- *           firstName:
- *             type: string
- *           lastName:
- *             type: string
- *           phoneNumber:
- *             type: string
- *       token:
- *         type: string
+ *      id:
+ *       type: integer
+ *      GUID:
+ *       type: string
+ *      email:
+ *       type: string
+ *      firstName:
+ *       type: string
+ *      lastName:
+ *       type: string
+ *      phoneNumber:
+ *       type: string
+ *      last_login:
+ *       type: string
+ *     token:
+ *      type: string
  */
 router.post('/signin', async (req, res, next) => {
   const { email, password } = req.body;
@@ -208,13 +210,20 @@ router.post('/signin', async (req, res, next) => {
       throw error;
     }
 
+    const loginInfo = await User.query()
+      .where('id', user.id)
+      .update({ updated_at: 'now()', last_login: 'now()' })
+      .returning(['id', 'GUID', 'email', 'firstName', 'lastName', 'phoneNumber', 'last_login'])
+      .first();
+
     const payload = {
-      id: user.id,
-      GUID: user.GUID,
-      email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      phoneNumber: user.phoneNumber,
+      id: loginInfo.id,
+      GUID: loginInfo.GUID,
+      email: loginInfo.email,
+      firstName: loginInfo.firstName,
+      lastName: loginInfo.lastName,
+      phoneNumber: loginInfo.phoneNumber,
+      last_login: loginInfo.last_login,
     };
 
     const token = await jwt.sign(payload);
