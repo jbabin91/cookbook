@@ -27,19 +27,19 @@ Deleted At - datetime
 
 ## CRUD
 
-## Auth
+### Auth
 
 - [x] User Sign Up
 - [x] User Sign In
 
-### User
+#### User
 
 - [x] GET User
 - [x] Get User By ID
 - [ ] UPDATE User
 - [x] DELETE User (Soft delete adds a date to deleted_at)
 
-### Measurement
+#### Measurement
 
 - [ ] Create Measurement
 - [x] GET Measurement
@@ -47,7 +47,7 @@ Deleted At - datetime
 - [ ] UPDATE Measurement
 - [x] DELETE Measurement
 
-### Meal Type
+#### Meal Type
 
 - [ ] Create Meal Type
 - [x] GET Meal Type
@@ -55,7 +55,7 @@ Deleted At - datetime
 - [ ] UPDATE Meal Type
 - [x] DELETE Meal Type
 
-### Difficulty
+#### Difficulty
 
 - [ ] Create Difficulty
 - [x] GET Difficulty
@@ -63,7 +63,7 @@ Deleted At - datetime
 - [ ] UPDATE Difficulty
 - [x] DELETE Difficulty
 
-### Ingredient
+#### Ingredient
 
 - [ ] Create Ingredient
 - [x] GET Ingredient
@@ -71,7 +71,7 @@ Deleted At - datetime
 - [ ] UPDATE Ingredient
 - [x] DELETE Ingredient
 
-### Recipe
+#### Recipe
 
 - [ ] Create Recipe
 - [x] GET Recipe
@@ -79,7 +79,7 @@ Deleted At - datetime
 - [ ] UPDATE Recipe
 - [x] DELETE Recipe
 
-### Recipe Ingredient
+#### Recipe Ingredient
 
 - [ ] Create Recipe Ingredient
 - [x] GET Recipe Ingredient
@@ -89,19 +89,19 @@ Deleted At - datetime
 
 ## Swagger
 
-## Auth Docs
+### Auth Docs
 
 - [x] User Sign Up
 - [x] User Sign In
 
-### User Docs
+#### User Docs
 
 - [x] GET User
 - [x] Get User By ID
 - [ ] UPDATE User
 - [x] DELETE User
 
-### Measurement Docs
+#### Measurement Docs
 
 - [ ] Create Measurement
 - [x] GET Measurement
@@ -109,7 +109,7 @@ Deleted At - datetime
 - [ ] UPDATE Measurement
 - [x] DELETE Measurement
 
-### Meal Type Docs
+#### Meal Type Docs
 
 - [ ] Create Meal Type
 - [x] GET Meal Type
@@ -117,7 +117,7 @@ Deleted At - datetime
 - [ ] UPDATE Meal Type
 - [x] DELETE Meal Type
 
-### Difficulty Docs
+#### Difficulty Docs
 
 - [ ] Create Difficulty
 - [x] GET Difficulty
@@ -125,7 +125,7 @@ Deleted At - datetime
 - [ ] UPDATE Difficulty
 - [x] DELETE Difficulty
 
-### Ingredient Docs
+#### Ingredient Docs
 
 - [ ] Create Ingredient
 - [x] GET Ingredient
@@ -133,7 +133,7 @@ Deleted At - datetime
 - [ ] UPDATE Ingredient
 - [x] DELETE Ingredient
 
-### Recipe Docs
+#### Recipe Docs
 
 - [ ] Create Recipe
 - [x] GET Recipe
@@ -141,7 +141,7 @@ Deleted At - datetime
 - [ ] UPDATE Recipe
 - [x] DELETE Recipe
 
-### Recipe Ingredient Docs
+#### Recipe Ingredient Docs
 
 - [ ] Create Recipe Ingredient
 - [x] GET Recipe Ingredient
