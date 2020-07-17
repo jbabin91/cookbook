@@ -1,10 +1,8 @@
 const express = require('express');
 
-const Admin = require('../admin/admin.model');
 const RecipeIngredient = require('./recipeIngredient.model');
-const jwt = require('../../lib/jwt');
+const jwtVerify = require('../../../src/lib/authFunctions');
 const verifyToken = require('../../../src/middleware/verifyToken');
-const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
 
@@ -57,11 +55,7 @@ router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
+    jwtVerify(token);
 
     const recipeIngredients = await RecipeIngredient.query()
       .select('id', 'amount', 'Recipe_id', 'Ingredient_id', 'Measurement_id', 'created_at', 'updated_at')
@@ -125,11 +119,7 @@ router.get('/:recipeId', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
+    jwtVerify(token);
 
     const recipeIngredients = await RecipeIngredient.query()
       .select('id', 'amount', 'Recipe_id', 'Ingredient_id', 'Measurement_id', 'created_at', 'updated_at')
@@ -187,19 +177,7 @@ router.delete('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
-
-    const admin = await Admin.query().select('delete').where({ User_id: jwtResponse.payload.id }).first();
-
-    if (!admin || admin.delete === false) {
-      const error = new Error(errorMessages.ForbiddenError);
-      res.status(errorTypes.UnAuthorizedError);
-      throw error;
-    }
+    jwtVerify(token, 'delete');
 
     const recipeIngredient = await RecipeIngredient.query()
       .where('id', req.params.id)

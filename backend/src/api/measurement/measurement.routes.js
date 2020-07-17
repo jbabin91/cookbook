@@ -1,10 +1,8 @@
 const express = require('express');
 
-const Admin = require('../admin/admin.model');
 const Measurement = require('./measurement.model');
-const jwt = require('../../lib/jwt');
+const jwtVerify = require('../../../src/lib/authFunctions');
 const verifyToken = require('../../../src/middleware/verifyToken');
-const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
 
@@ -54,11 +52,7 @@ router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
+    jwtVerify(token);
 
     const measurements = await Measurement.query()
       .select('id', 'type', 'unit', 'abbreviation', 'created_at', 'updated_at')
@@ -108,11 +102,7 @@ router.get('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
+    jwtVerify(token);
 
     const measurement = await Measurement.query()
       .select('id', 'type', 'unit', 'abbreviation', 'created_at', 'updated_at')
@@ -169,19 +159,7 @@ router.delete('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
-
-    const admin = await Admin.query().select('delete').where({ User_id: jwtResponse.payload.id }).first();
-
-    if (!admin || admin.delete === false) {
-      const error = new Error(errorMessages.ForbiddenError);
-      res.status(errorTypes.UnAuthorizedError);
-      throw error;
-    }
+    jwtVerify(token, 'delete');
 
     const measurement = await Measurement.query()
       .where('id', req.params.id)

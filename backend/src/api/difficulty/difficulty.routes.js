@@ -1,10 +1,8 @@
 const express = require('express');
 
-const Admin = require('../admin/admin.model');
 const Difficulty = require('./difficulty.model');
-const jwt = require('../../lib/jwt');
+const jwtVerify = require('../../../src/lib/authFunctions');
 const verifyToken = require('../../../src/middleware/verifyToken');
-const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
 
@@ -50,11 +48,8 @@ router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
+    jwtVerify(token);
 
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
     const difficulties = await Difficulty.query().select('id', 'name', 'created_at', 'updated_at').where('deleted_at', null);
     res.json({ difficulties });
   } catch (err) {
@@ -104,11 +99,7 @@ router.get('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
+    jwtVerify(token);
 
     const difficulty = await Difficulty.query()
       .select('id', 'name', 'created_at', 'updated_at')
@@ -167,19 +158,7 @@ router.delete('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const jwtResponse = await jwt.verify(token);
-
-    if (jwtResponse.error) {
-      throw jwtResponse.error;
-    }
-
-    const admin = await Admin.query().select('delete').where({ User_id: jwtResponse.payload.id }).first();
-
-    if (!admin || admin.delete === false) {
-      const error = new Error(errorMessages.ForbiddenError);
-      res.status(errorTypes.PermissionsError);
-      throw error;
-    }
+    jwtVerify(token, 'delete');
 
     const difficulty = await Difficulty.query()
       .where('id', req.params.id)
