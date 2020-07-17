@@ -43,36 +43,41 @@ Deleted At - datetime
 
 - [ ] Create Measurement
 - [x] GET Measurement
+- [x] GET Measurement By Id
 - [ ] UPDATE Measurement
-- [ ] DELETE Measurement
+- [x] DELETE Measurement
 
 ### Meal Type
 
 - [ ] Create Meal Type
 - [x] GET Meal Type
+- [x] GET Meal Type By Id
 - [ ] UPDATE Meal Type
-- [ ] DELETE Meal Type
+- [x] DELETE Meal Type
 
 ### Difficulty
 
 - [ ] Create Difficulty
 - [x] GET Difficulty
+- [x] GET Difficulty By Id
 - [ ] UPDATE Difficulty
-- [ ] DELETE Difficulty
+- [x] DELETE Difficulty
 
 ### Ingredient
 
 - [ ] Create Ingredient
 - [x] GET Ingredient
+- [x] GET Ingredient By RecipeId
 - [ ] UPDATE Ingredient
-- [ ] DELETE Ingredient
+- [x] DELETE Ingredient
 
 ### Recipe
 
 - [ ] Create Recipe
 - [x] GET Recipe
+- [x] GET Recipe By Id
 - [ ] UPDATE Recipe
-- [ ] DELETE Recipe
+- [x] DELETE Recipe
 
 ### Recipe Ingredient
 
@@ -80,7 +85,7 @@ Deleted At - datetime
 - [x] GET Recipe Ingredient
 - [x] GET Recipe Ingredients By RecipeID
 - [ ] UPDATE Recipe Ingredient
-- [ ] DELETE Recipe Ingredient
+- [x] DELETE Recipe Ingredient
 
 ## Swagger
 
@@ -100,36 +105,41 @@ Deleted At - datetime
 
 - [ ] Create Measurement
 - [x] GET Measurement
+- [x] GET Measurement By Id
 - [ ] UPDATE Measurement
-- [ ] DELETE Measurement
+- [x] DELETE Measurement
 
 ### Meal Type Docs
 
 - [ ] Create Meal Type
 - [x] GET Meal Type
+- [x] GET Meal Type By Id
 - [ ] UPDATE Meal Type
-- [ ] DELETE Meal Type
+- [x] DELETE Meal Type
 
 ### Difficulty Docs
 
 - [ ] Create Difficulty
 - [x] GET Difficulty
+- [x] GET Difficulty By Id
 - [ ] UPDATE Difficulty
-- [ ] DELETE Difficulty
+- [x] DELETE Difficulty
 
 ### Ingredient Docs
 
 - [ ] Create Ingredient
 - [x] GET Ingredient
+- [x] GET Ingredient By RecipeId
 - [ ] UPDATE Ingredient
-- [ ] DELETE Ingredient
+- [x] DELETE Ingredient
 
 ### Recipe Docs
 
 - [ ] Create Recipe
 - [x] GET Recipe
+- [x] GET Recipe By Id
 - [ ] UPDATE Recipe
-- [ ] DELETE Recipe
+- [x] DELETE Recipe
 
 ### Recipe Ingredient Docs
 
@@ -137,7 +147,7 @@ Deleted At - datetime
 - [x] GET Recipe Ingredient
 - [x] GET Recipe Ingredients By RecipeID
 - [ ] UPDATE Recipe Ingredient
-- [ ] DELETE Recipe Ingredient
+- [x] DELETE Recipe Ingredient
 
 ## STRETCH
 

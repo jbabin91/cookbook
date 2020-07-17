@@ -1,10 +1,15 @@
 const express = require('express');
 
+const Admin = require('../admin/admin.model');
 const RecipeIngredient = require('./recipeIngredient.model');
 const jwt = require('../../lib/jwt');
 const verifyToken = require('../../../src/middleware/verifyToken');
+const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
+
+//TODO: Create
+//TODO: Update
 
 /**
  * @swagger
@@ -17,7 +22,7 @@ const router = express.Router();
  *     - bearerAuth: []
  *    responses:
  *     200:
- *      description: An object with a user object and a token
+ *      description: An array of all ingredient objects
  *      content:
  *       application/json:
  *        schema:
@@ -36,7 +41,7 @@ const router = express.Router();
  *    id:
  *     type: integer
  *    amount:
- *     type: number
+ *     type: double
  *    Recipe_id:
  *     type: integer
  *    Ingredient_id:
@@ -52,16 +57,16 @@ router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const error = await jwt.verify(token);
+    const jwtResponse = await jwt.verify(token);
 
-    if (error) {
-      throw error;
+    if (jwtResponse.error) {
+      throw jwtResponse.error;
     }
 
     const recipeIngredients = await RecipeIngredient.query()
       .select('id', 'amount', 'Recipe_id', 'Ingredient_id', 'Measurement_id', 'created_at', 'updated_at')
       .where('deleted_at', null);
-    res.json(recipeIngredients);
+    res.json({ recipeIngredients });
   } catch (err) {
     next(err);
   }
@@ -70,7 +75,7 @@ router.get('/', verifyToken, async (req, res, next) => {
 /**
  * @swagger
  * paths:
- *  /recipeIngredient/{id}:
+ *  /recipeIngredient/{recipeId}:
  *   get:
  *    summary: Gets ingredients for a single recipe
  *    tags: [RecipeIngredient]
@@ -78,14 +83,14 @@ router.get('/', verifyToken, async (req, res, next) => {
  *     - bearerAuth: []
  *    parameters:
  *     - in: path
- *       name: id
+ *       name: recipeId
  *       schema:
  *        type: integer
  *       required: true
  *       description: Numeric ID of the recipe to associate the recipeIngredient
  *    responses:
  *     200:
- *      description: An object with a user object and a token
+ *      description: An array of ingredients for a recipe
  *      content:
  *       application/json:
  *        schema:
@@ -104,7 +109,7 @@ router.get('/', verifyToken, async (req, res, next) => {
  *    id:
  *     type: integer
  *    amount:
- *     type: number
+ *     type: double
  *    Recipe_id:
  *     type: integer
  *    Ingredient_id:
@@ -116,21 +121,93 @@ router.get('/', verifyToken, async (req, res, next) => {
  *    updated_at:
  *     type: string
  */
-router.get('/:id', verifyToken, async (req, res, next) => {
+router.get('/:recipeId', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const error = await jwt.verify(token);
+    const jwtResponse = await jwt.verify(token);
 
-    if (error) {
-      throw error;
+    if (jwtResponse.error) {
+      throw jwtResponse.error;
     }
 
     const recipeIngredients = await RecipeIngredient.query()
       .select('id', 'amount', 'Recipe_id', 'Ingredient_id', 'Measurement_id', 'created_at', 'updated_at')
-      .where('Recipe_id', req.params.id)
+      .where('Recipe_id', req.params.recipeId)
       .where('deleted_at', null);
-    res.json(recipeIngredients);
+
+    res.json({ recipeIngredients });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /recipeIngredient/{id}:
+ *   delete:
+ *    summary: Deletes a Recipe Ingredient by id
+ *    tags: [RecipeIngredient]
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *     200:
+ *      description: A recipeIngredient object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeIngredient'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  recipeIngredient:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    amount:
+ *     type: double
+ *    Recipe_id:
+ *     type: integer
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ *    deleted_at:
+ *     type: string
+ */
+router.delete('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    const jwtResponse = await jwt.verify(token);
+
+    if (jwtResponse.error) {
+      throw jwtResponse.error;
+    }
+
+    const admin = await Admin.query().select('delete').where({ User_id: jwtResponse.payload.id }).first();
+
+    if (!admin || admin.delete === false) {
+      const error = new Error(errorMessages.ForbiddenError);
+      res.status(errorTypes.UnAuthorizedError);
+      throw error;
+    }
+
+    const recipeIngredient = await RecipeIngredient.query()
+      .where('id', req.params.id)
+      .update({ updated_at: 'now()', deleted_at: 'now()' })
+      .returning(['id', 'amount', 'Recipe_id', 'Ingredient_id', 'Measurement_id', 'created_at', 'updated_at', 'deleted_at'])
+      .first();
+
+    res.json({ recipeIngredient });
   } catch (err) {
     next(err);
   }

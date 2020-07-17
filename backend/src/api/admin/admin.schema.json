@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "Admin",
+  "description": "Admin settings",
+  "required": [],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$id": "#/properties/id",
+      "type": "integer",
+      "title": "Admin ID"
+    },
+    "User_id": {
+      "$id": "#/properties/User_id",
+      "type": "integer",
+      "title": "User ID"
+    },
+    "create": {
+      "$id": "#/properties/create",
+      "type": "boolean",
+      "title": "Admin permission to create."
+    },
+    "update": {
+      "$id": "#/properties/update",
+      "type": "boolean",
+      "title": "Admin permission to update."
+    },
+    "delete": {
+      "$id": "#/properties/delete",
+      "type": "boolean",
+      "title": "Admin permission to delete."
+    }
+  }
+}

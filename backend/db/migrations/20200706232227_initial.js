@@ -56,6 +56,14 @@ exports.up = async (knex) => {
     references(table, 'Measurement', false);
     addDefaultColumns(table);
   });
+
+  await knex.schema.createTable(tableNames.admin, (table) => {
+    table.increments().notNullable();
+    references(table, 'User', false);
+    table.boolean('create');
+    table.boolean('update');
+    table.boolean('delete');
+  });
 };
 
 exports.down = async (knex) => {

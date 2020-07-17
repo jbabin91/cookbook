@@ -6,4 +6,5 @@ module.exports = {
   difficulty: 'Difficulty',
   ingredient: 'Ingredient',
   measurement: 'Measurement',
+  admin: 'Admin',
 };

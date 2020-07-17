@@ -9,6 +9,7 @@ const errorMessages = {
   BadToken: 'Failed to authenticate token',
   EmailInUse: 'Email in use.',
   ForbiddenError: "You don't have permission to access this url.",
+  PermissionsError: "You don't have the proper permissions.",
   InvalidLogin: 'Invalid login.',
   NoToken: 'No Token',
   UniqueViolationError: 'Already exists.',

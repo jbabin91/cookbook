@@ -1,10 +1,14 @@
 const express = require('express');
 
+const Admin = require('../admin/admin.model');
 const User = require('./user.model');
 const jwt = require('../../lib/jwt');
 const verifyToken = require('../../middleware/verifyToken');
+const { errorTypes, errorMessages } = require('../../../src/middleware/errors');
 
 const router = express.Router();
+
+//TODO: Update
 
 /**
  * @swagger
@@ -55,16 +59,16 @@ router.get('/', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const error = await jwt.verify(token);
+    const jwtResponse = await jwt.verify(token);
 
-    if (error) {
-      throw error;
+    if (jwtResponse.error) {
+      throw jwtResponse.error;
     }
 
     const users = await User.query()
       .select('id', 'GUID', 'email', 'firstName', 'lastName', 'phoneNumber', 'created_at', 'updated_at')
       .where('deleted_at', null);
-    res.json(users);
+    res.json({ users });
   } catch (err) {
     next(err);
   }
@@ -120,10 +124,10 @@ router.get('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const error = await jwt.verify(token);
+    const jwtResponse = await jwt.verify(token);
 
-    if (error) {
-      throw error;
+    if (jwtResponse.error) {
+      throw jwtResponse.error;
     }
 
     const user = await User.query()
@@ -131,7 +135,7 @@ router.get('/:id', verifyToken, async (req, res, next) => {
       .where('id', req.params.id)
       .where('deleted_at', null)
       .first();
-    res.json(user);
+    res.json({ user });
   } catch (err) {
     next(err);
   }
@@ -160,6 +164,8 @@ router.get('/:id', verifyToken, async (req, res, next) => {
  *       application/json:
  *        schema:
  *         $ref: '#/definitions/user'
+ *     401:
+ *      description: You don't have the proper permissions.
  *     403:
  *      description: You don't have permission to access this url.
  * definitions:
@@ -191,9 +197,17 @@ router.delete('/:id', verifyToken, async (req, res, next) => {
   const { token } = req;
 
   try {
-    const error = await jwt.verify(token);
+    const jwtResponse = await jwt.verify(token);
 
-    if (error) {
+    if (jwtResponse.error) {
+      throw jwtResponse.error;
+    }
+
+    const admin = await Admin.query().select('delete').where({ User_id: jwtResponse.payload.id }).first();
+
+    if (!admin || admin.delete === false) {
+      const error = new Error(errorMessages.ForbiddenError);
+      res.status(errorTypes.UnAuthorizedError);
       throw error;
     }
 
