@@ -6,8 +6,73 @@ const verifyToken = require('../../../src/middleware/verifyToken');
 
 const router = express.Router();
 
-//TODO: Create
-//TODO: Update
+/**
+ * @swagger
+ * paths:
+ *  /measurement:
+ *   post:
+ *    summary: Creates a new measurement
+ *    tags: [Measurement]
+ *    security:
+ *     - bearerAuth: []
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/measurementBody'
+ *    responses:
+ *     200:
+ *      description: A measurement object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/measurementResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  measurementBody:
+ *   type: object
+ *   properties:
+ *    type:
+ *     type: string
+ *    unit:
+ *     type: string
+ *    abbreviation:
+ *     type: string
+ *  measurementResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    type:
+ *     type: string
+ *    unit:
+ *     type: string
+ *    abbreviation:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.post('/', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'create');
+
+    const { type, unit, abbreviation } = req.body;
+
+    const measurement = await Measurement.query().insert({ type, unit, abbreviation });
+
+    res.json({ measurement });
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * @swagger

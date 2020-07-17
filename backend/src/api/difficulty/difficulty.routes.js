@@ -6,8 +6,65 @@ const verifyToken = require('../../../src/middleware/verifyToken');
 
 const router = express.Router();
 
-//TODO: Create
-//TODO: Update
+/**
+ * @swagger
+ * paths:
+ *  /difficulty:
+ *   post:
+ *    summary: Creates a new difficulty level
+ *    tags: [Difficulty]
+ *    security:
+ *     - bearerAuth: []
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/difficultyBody'
+ *    responses:
+ *     200:
+ *      description: A difficulty level object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/difficultyResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  difficultyBody:
+ *   type: object
+ *   properties:
+ *    name:
+ *     type: string
+ *  difficultyResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    name:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.post('/', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'create');
+
+    const { name } = req.body;
+
+    const difficulty = await Difficulty.query().insert({ name });
+
+    res.json({ difficulty });
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * @swagger
@@ -20,7 +77,7 @@ const router = express.Router();
  *     - bearerAuth: []
  *    responses:
  *     200:
- *      description: An array of difficulty objects
+ *      description: An array of difficulty level objects
  *      content:
  *       application/json:
  *        schema:
@@ -75,7 +132,7 @@ router.get('/', verifyToken, async (req, res, next) => {
  *       description: Difficulty ID
  *    responses:
  *     200:
- *      description: A difficulty object
+ *      description: A difficulty level object
  *      content:
  *       application/json:
  *        schema:
@@ -136,7 +193,7 @@ router.get('/:id', verifyToken, async (req, res, next) => {
  *        $ref: '#/definitions/difficultyBody'
  *    responses:
  *     200:
- *      description: A difficulty object
+ *      description: A difficulty level object
  *      content:
  *       application/json:
  *        schema:
@@ -201,7 +258,7 @@ router.put('/:id', verifyToken, async (req, res, next) => {
  *       description: Difficulty ID
  *    responses:
  *     200:
- *      description: A difficulty object
+ *      description: A difficulty level object
  *      content:
  *       application/json:
  *        schema:

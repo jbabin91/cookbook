@@ -6,8 +6,104 @@ const verifyToken = require('../../../src/middleware/verifyToken');
 
 const router = express.Router();
 
-//TODO: Create
-//TODO: Update
+/**
+ * @swagger
+ * paths:
+ *  /recipe:
+ *   post:
+ *    summary: Creates a new recipe
+ *    tags: [Recipe]
+ *    security:
+ *     - bearerAuth: []
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/recipeBody'
+ *    responses:
+ *     200:
+ *      description: A recipe object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  recipeBody:
+ *   type: object
+ *   properties:
+ *    title:
+ *     type: string
+ *    prepTime:
+ *     type: double
+ *    cookTime:
+ *     type: double
+ *    rating:
+ *     type: double
+ *    servingSize:
+ *     type: double
+ *    recipePreparation:
+ *     type: string
+ *    MealType_id:
+ *     type: integer
+ *    Difficulty_id:
+ *     type: integer
+ *  recipeResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    title:
+ *     type: string
+ *    prepTime:
+ *     type: double
+ *    cookTime:
+ *     type: double
+ *    rating:
+ *     type: double
+ *    servingSize:
+ *     type: double
+ *    recipePreparation:
+ *     type: string
+ *    MealType_id:
+ *     type: integer
+ *    Difficulty_id:
+ *     type: integer
+ *    User_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.post('/', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'create');
+
+    const { title, prepTime, cookTime, rating, servingSize, recipePreparation, MealType_id, Difficulty_id } = req.body;
+
+    const recipe = await Recipe.query().insert({
+      title,
+      prepTime,
+      cookTime,
+      rating,
+      servingSize,
+      recipePreparation,
+      MealType_id,
+      Difficulty_id,
+    });
+
+    res.json({ recipe });
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * @swagger

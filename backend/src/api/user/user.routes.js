@@ -6,8 +6,6 @@ const verifyToken = require('../../middleware/verifyToken');
 
 const router = express.Router();
 
-//TODO: Update
-
 /**
  * @swagger
  * paths:

@@ -41,50 +41,50 @@ Deleted At - datetime
 
 #### Measurement
 
-- [ ] Create Measurement
+- [x] Create Measurement
 - [x] GET Measurement
 - [x] GET Measurement By Id
-- [ ] UPDATE Measurement
+- [x] UPDATE Measurement
 - [x] DELETE Measurement
 
 #### Meal Type
 
-- [ ] Create Meal Type
+- [x] Create Meal Type
 - [x] GET Meal Type
 - [x] GET Meal Type By Id
-- [ ] UPDATE Meal Type
+- [x] UPDATE Meal Type
 - [x] DELETE Meal Type
 
 #### Difficulty
 
-- [ ] Create Difficulty
+- [x] Create Difficulty
 - [x] GET Difficulty
 - [x] GET Difficulty By Id
-- [ ] UPDATE Difficulty
+- [x] UPDATE Difficulty
 - [x] DELETE Difficulty
 
 #### Ingredient
 
-- [ ] Create Ingredient
+- [x] Create Ingredient
 - [x] GET Ingredient
 - [x] GET Ingredient By RecipeId
-- [ ] UPDATE Ingredient
+- [x] UPDATE Ingredient
 - [x] DELETE Ingredient
 
 #### Recipe
 
-- [ ] Create Recipe
+- [x] Create Recipe
 - [x] GET Recipe
 - [x] GET Recipe By Id
-- [ ] UPDATE Recipe
+- [x] UPDATE Recipe
 - [x] DELETE Recipe
 
 #### Recipe Ingredient
 
-- [ ] Create Recipe Ingredient
+- [x] Create Recipe Ingredient
 - [x] GET Recipe Ingredient
 - [x] GET Recipe Ingredients By RecipeID
-- [ ] UPDATE Recipe Ingredient
+- [x] UPDATE Recipe Ingredient
 - [x] DELETE Recipe Ingredient
 
 ## Swagger
@@ -103,7 +103,7 @@ Deleted At - datetime
 
 #### Measurement Docs
 
-- [ ] Create Measurement
+- [x] Create Measurement
 - [x] GET Measurement
 - [x] GET Measurement By Id
 - [x] UPDATE Measurement
@@ -111,7 +111,7 @@ Deleted At - datetime
 
 #### Meal Type Docs
 
-- [ ] Create Meal Type
+- [x] Create Meal Type
 - [x] GET Meal Type
 - [x] GET Meal Type By Id
 - [x] UPDATE Meal Type
@@ -119,7 +119,7 @@ Deleted At - datetime
 
 #### Difficulty Docs
 
-- [ ] Create Difficulty
+- [x] Create Difficulty
 - [x] GET Difficulty
 - [x] GET Difficulty By Id
 - [x] UPDATE Difficulty
@@ -127,7 +127,7 @@ Deleted At - datetime
 
 #### Ingredient Docs
 
-- [ ] Create Ingredient
+- [x] Create Ingredient
 - [x] GET Ingredient
 - [x] GET Ingredient By RecipeId
 - [x] UPDATE Ingredient
@@ -135,7 +135,7 @@ Deleted At - datetime
 
 #### Recipe Docs
 
-- [ ] Create Recipe
+- [x] Create Recipe
 - [x] GET Recipe
 - [x] GET Recipe By Id
 - [x] UPDATE Recipe
@@ -143,7 +143,7 @@ Deleted At - datetime
 
 #### Recipe Ingredient Docs
 
-- [ ] Create Recipe Ingredient
+- [x] Create Recipe Ingredient
 - [x] GET Recipe Ingredient
 - [x] GET Recipe Ingredients By RecipeID
 - [x] UPDATE Recipe Ingredient

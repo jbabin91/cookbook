@@ -6,8 +6,65 @@ const verifyToken = require('../../../src/middleware/verifyToken');
 
 const router = express.Router();
 
-//TODO: Create
-//TODO: Update
+/**
+ * @swagger
+ * paths:
+ *  /mealType:
+ *   post:
+ *    summary: Creates a new mealType
+ *    tags: [MealType]
+ *    security:
+ *     - bearerAuth: []
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/mealTypeBody'
+ *    responses:
+ *     200:
+ *      description: A mealType object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/mealTypeResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  mealTypeBody:
+ *   type: object
+ *   properties:
+ *    name:
+ *     type: string
+ *  mealTypeResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    name:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.post('/', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'create');
+
+    const { name } = req.body;
+
+    const mealType = await MealType.query().insert({ name });
+
+    res.json({ mealType });
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * @swagger

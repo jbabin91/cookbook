@@ -6,8 +6,79 @@ const verifyToken = require('../../../src/middleware/verifyToken');
 
 const router = express.Router();
 
-//TODO: Create
-//TODO: Update
+/**
+ * @swagger
+ * paths:
+ *  /recipeIngredient:
+ *   post:
+ *    summary: Creates a new recipeIngredient
+ *    tags: [RecipeIngredient]
+ *    security:
+ *     - bearerAuth: []
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/recipeIngredientBody'
+ *    responses:
+ *     200:
+ *      description: A recipeIngredient object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeIngredientResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  recipeIngredientBody:
+ *   type: object
+ *   properties:
+ *    amount:
+ *     type: double
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *  recipeResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    amount:
+ *     type: double
+ *    Recipe_id:
+ *     type: integer
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.post('/', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'create');
+
+    const { amount, Ingredient_id, Measurement_id } = req.body;
+
+    const recipeIngredient = await RecipeIngredient.query().insert({
+      amount,
+      Ingredient_id,
+      Measurement_id,
+    });
+
+    res.json({ recipeIngredient });
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * @swagger
