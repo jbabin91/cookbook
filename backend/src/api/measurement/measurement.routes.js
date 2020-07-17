@@ -120,6 +120,85 @@ router.get('/:id', verifyToken, async (req, res, next) => {
  * @swagger
  * paths:
  *  /measurement/{id}:
+ *   put:
+ *    summary: Updates a measurement by id
+ *    tags: [Measurement]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: Measurement ID
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/measurementBody'
+ *    responses:
+ *     200:
+ *      description: A measurement object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/measurementResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  measurementBody:
+ *   type: object
+ *   properties:
+ *    type:
+ *     type: string
+ *    unit:
+ *     type: string
+ *    abbreviation:
+ *     type: string
+ *  measurementResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    type:
+ *     type: string
+ *    unit:
+ *     type: string
+ *    abbreviation:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.put('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'update');
+
+    const { type, unit, abbreviation } = req.body;
+
+    const measurement = await Measurement.query()
+      .where('id', req.params.id)
+      .update({ type, unit, abbreviation, updated_at: 'now()' })
+      .returning(['id', 'name', 'created_at', 'updated_at'])
+      .first();
+
+    res.json({ measurement });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /measurement/{id}:
  *   delete:
  *    summary: Deletes a measurement by id
  *    tags: [Measurement]

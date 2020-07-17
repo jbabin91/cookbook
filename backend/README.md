@@ -36,7 +36,7 @@ Deleted At - datetime
 
 - [x] GET User
 - [x] Get User By ID
-- [ ] UPDATE User
+- [x] UPDATE User
 - [x] DELETE User (Soft delete adds a date to deleted_at)
 
 #### Measurement
@@ -98,7 +98,7 @@ Deleted At - datetime
 
 - [x] GET User
 - [x] Get User By ID
-- [ ] UPDATE User
+- [x] UPDATE User
 - [x] DELETE User
 
 #### Measurement Docs
@@ -106,7 +106,7 @@ Deleted At - datetime
 - [ ] Create Measurement
 - [x] GET Measurement
 - [x] GET Measurement By Id
-- [ ] UPDATE Measurement
+- [x] UPDATE Measurement
 - [x] DELETE Measurement
 
 #### Meal Type Docs
@@ -114,7 +114,7 @@ Deleted At - datetime
 - [ ] Create Meal Type
 - [x] GET Meal Type
 - [x] GET Meal Type By Id
-- [ ] UPDATE Meal Type
+- [x] UPDATE Meal Type
 - [x] DELETE Meal Type
 
 #### Difficulty Docs
@@ -122,7 +122,7 @@ Deleted At - datetime
 - [ ] Create Difficulty
 - [x] GET Difficulty
 - [x] GET Difficulty By Id
-- [ ] UPDATE Difficulty
+- [x] UPDATE Difficulty
 - [x] DELETE Difficulty
 
 #### Ingredient Docs
@@ -130,7 +130,7 @@ Deleted At - datetime
 - [ ] Create Ingredient
 - [x] GET Ingredient
 - [x] GET Ingredient By RecipeId
-- [ ] UPDATE Ingredient
+- [x] UPDATE Ingredient
 - [x] DELETE Ingredient
 
 #### Recipe Docs
@@ -138,7 +138,7 @@ Deleted At - datetime
 - [ ] Create Recipe
 - [x] GET Recipe
 - [x] GET Recipe By Id
-- [ ] UPDATE Recipe
+- [x] UPDATE Recipe
 - [x] DELETE Recipe
 
 #### Recipe Ingredient Docs
@@ -146,7 +146,7 @@ Deleted At - datetime
 - [ ] Create Recipe Ingredient
 - [x] GET Recipe Ingredient
 - [x] GET Recipe Ingredients By RecipeID
-- [ ] UPDATE Recipe Ingredient
+- [x] UPDATE Recipe Ingredient
 - [x] DELETE Recipe Ingredient
 
 ## STRETCH

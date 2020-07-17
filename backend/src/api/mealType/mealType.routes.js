@@ -117,6 +117,77 @@ router.get('/:id', verifyToken, async (req, res, next) => {
  * @swagger
  * paths:
  *  /mealType/{id}:
+ *   put:
+ *    summary: Updates a mealType by id
+ *    tags: [MealType]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: MealType ID
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/mealTypeBody'
+ *    responses:
+ *     200:
+ *      description: A mealType object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/mealTypeResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  mealTypeBody:
+ *   type: object
+ *   properties:
+ *    name:
+ *     type: string
+ *  mealTypeResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    name:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.put('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'update');
+
+    const { name } = req.body;
+
+    const mealType = await MealType.query()
+      .where('id', req.params.id)
+      .update({ name, updated_at: 'now()' })
+      .returning(['id', 'name', 'created_at', 'updated_at'])
+      .first();
+
+    res.json({ mealType });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /mealType/{id}:
  *   delete:
  *    summary: Deletes a mealType by id
  *    tags: [MealType]

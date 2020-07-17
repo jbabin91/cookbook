@@ -177,6 +177,120 @@ router.get('/:id', verifyToken, async (req, res, next) => {
  * @swagger
  * paths:
  *  /recipe/{id}:
+ *   put:
+ *    summary: Updates a recipe by id
+ *    tags: [Recipe]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: Recipe ID
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/recipeBody'
+ *    responses:
+ *     200:
+ *      description: A recipe object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  recipeBody:
+ *   type: object
+ *   properties:
+ *    title:
+ *     type: string
+ *    prepTime:
+ *     type: double
+ *    cookTime:
+ *     type: double
+ *    rating:
+ *     type: double
+ *    servingSize:
+ *     type: double
+ *    recipePreparation:
+ *     type: string
+ *    MealType_id:
+ *     type: integer
+ *    Difficulty_id:
+ *     type: integer
+ *  recipeResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    title:
+ *     type: string
+ *    prepTime:
+ *     type: double
+ *    cookTime:
+ *     type: double
+ *    rating:
+ *     type: double
+ *    servingSize:
+ *     type: double
+ *    recipePreparation:
+ *     type: string
+ *    MealType_id:
+ *     type: integer
+ *    Difficulty_id:
+ *     type: integer
+ *    User_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.put('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'update');
+
+    const { title, prepTime, cookTime, rating, servingSize, recipePreparation, MealType_id, Difficulty_id } = req.body;
+
+    const recipe = await Recipe.query()
+      .where('id', req.params.id)
+      .update({ title, prepTime, cookTime, rating, servingSize, recipePreparation, MealType_id, Difficulty_id, updated_at: 'now()' })
+      .returning([
+        'id',
+        'title',
+        'prepTime',
+        'cookTime',
+        'rating',
+        'servingSize',
+        'recipePreparation',
+        'MealType_id',
+        'Difficulty_id',
+        'User_id',
+        'created_at',
+        'updated_at',
+      ])
+      .first();
+
+    res.json({ recipe });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /recipe/{id}:
  *   delete:
  *    summary: Deletes a recipe by id
  *    tags: [Recipe]

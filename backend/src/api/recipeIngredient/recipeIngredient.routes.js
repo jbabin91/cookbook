@@ -136,6 +136,87 @@ router.get('/:recipeId', verifyToken, async (req, res, next) => {
  * @swagger
  * paths:
  *  /recipeIngredient/{id}:
+ *   put:
+ *    summary: Updates a recipeIngredient by id
+ *    tags: [RecipeIngredient]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: recipeIngredient ID
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/recipeIngredientBody'
+ *    responses:
+ *     200:
+ *      description: A recipeIngredient object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/recipeIngredientResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  recipeIngredientBody:
+ *   type: object
+ *   properties:
+ *    amount:
+ *     type: double
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *  recipeResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    amount:
+ *     type: double
+ *    Recipe_id:
+ *     type: integer
+ *    Ingredient_id:
+ *     type: integer
+ *    Measurement_id:
+ *     type: integer
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.put('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'update');
+
+    const { amount, Ingredient_id, Measurement_id } = req.body;
+
+    const recipeIngredient = await RecipeIngredient.query()
+      .where('id', req.params.id)
+      .update({ amount, Ingredient_id, Measurement_id, updated_at: 'now()' })
+      .returning(['id', 'amount', 'Recipe_id', 'Ingredient_id', 'Measurement_id', 'created_at', 'updated_at'])
+      .first();
+
+    res.json({ recipeIngredient });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /recipeIngredient/{id}:
  *   delete:
  *    summary: Deletes a Recipe Ingredient by id
  *    tags: [RecipeIngredient]

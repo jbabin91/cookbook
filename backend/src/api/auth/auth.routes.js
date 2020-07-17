@@ -105,7 +105,6 @@ router.post('/signup', async (req, res, next) => {
       throw error;
     }
 
-    // TODO: get rounds from config
     const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS));
     const uuid = await uuidv4();
     const insertedUser = await User.query().insert({

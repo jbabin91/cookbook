@@ -116,6 +116,77 @@ router.get('/:id', verifyToken, async (req, res, next) => {
  * @swagger
  * paths:
  *  /difficulty/{id}:
+ *   put:
+ *    summary: Updates a difficulty by id
+ *    tags: [Difficulty]
+ *    security:
+ *     - bearerAuth: []
+ *    parameters:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *        type: integer
+ *       required: true
+ *       description: Difficulty ID
+ *    requestBody:
+ *     required: true
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/definitions/difficultyBody'
+ *    responses:
+ *     200:
+ *      description: A difficulty object
+ *      content:
+ *       application/json:
+ *        schema:
+ *         $ref: '#/definitions/difficultyResponse'
+ *     401:
+ *      description: You don't have the proper permissions.
+ *     403:
+ *      description: You don't have permission to access this url.
+ * definitions:
+ *  difficultyBody:
+ *   type: object
+ *   properties:
+ *    name:
+ *     type: string
+ *  difficultyResponse:
+ *   type: object
+ *   properties:
+ *    id:
+ *     type: integer
+ *    name:
+ *     type: string
+ *    created_at:
+ *     type: string
+ *    updated_at:
+ *     type: string
+ */
+router.put('/:id', verifyToken, async (req, res, next) => {
+  const { token } = req;
+
+  try {
+    jwtVerify(token, 'update');
+
+    const { name } = req.body;
+
+    const difficulty = await Difficulty.query()
+      .where('id', req.params.id)
+      .update({ name, updated_at: 'now()' })
+      .returning(['id', 'name', 'created_at', 'updated_at'])
+      .first();
+
+    res.json({ difficulty });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * @swagger
+ * paths:
+ *  /difficulty/{id}:
  *   delete:
  *    summary: Deletes a difficulty by id
  *    tags: [Difficulty]
