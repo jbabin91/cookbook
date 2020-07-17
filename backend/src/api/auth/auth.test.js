@@ -72,21 +72,4 @@ describe('Auth', () => {
         done();
       });
   });
-
-  // describe('GET /users', () => {
-  //   it('should get an array of users', (done) => {
-  //     setupMock(200, { result: 'valid' });
-
-  //     chai
-  //       .request(SERVER_URL)
-  //       .get('/api/v1/users')
-  //       .set({ authorization: `Bearer ${token}` })
-  //       .end((err, res) => {
-  //         if (err) throw err;
-  //         res.should.have.status(200);
-  //         res.body.should.be.a('array');
-  //         done();
-  //       });
-  //   });
-  // });
 });
