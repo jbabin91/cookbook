@@ -82,7 +82,7 @@ router.get('/', verifyToken, async (req, res, next) => {
         'updated_at',
       )
       .where('deleted_at', null);
-    res.json(recipes);
+    res.json({ recipes });
   } catch (err) {
     next(err);
   }
