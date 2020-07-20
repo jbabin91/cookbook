@@ -33,6 +33,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       { "devDependencies": ["**/*.stories.tsx"] }
-    ]
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": 0
   }
 }
