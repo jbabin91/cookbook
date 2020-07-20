@@ -1,8 +1,9 @@
 {
   "name": "cookbook-backend",
   "version": "0.0.1",
+  "author": "Jace Babin <jbabin91@gmail.com>",
+  "license": "MIT",
   "description": "A fullstack cookbook ",
-  "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon --inspect src/index.js",
@@ -12,8 +13,6 @@
     "test": "mocha --recursive src",
     "test:debug": "nodemon --inspect node_modules/.bin/jest --watch --runInBand"
   },
-  "author": "Jace Babin <jbabin91@gmail.com>",
-  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
