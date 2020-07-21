@@ -18,6 +18,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+        <p>{process.env.REACT_APP_API_ENDPOINT}</p>
       </header>
     </div>
   );
