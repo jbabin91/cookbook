@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const Routes = () => {
+export const AppRoutes = () => {
   return <div>Routes</div>;
 };
 
-export default Routes;
+export default AppRoutes;
