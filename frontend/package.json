@@ -14,7 +14,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format && yarn lint",
+      "pre-commit": "pretty-quick --staged",
       "post-commit": "git update-index -g"
     }
   },
