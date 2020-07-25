@@ -32,5 +32,10 @@
     "prettier/prettier": "error",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.stories.tsx"] }],
     "@typescript-eslint/explicit-module-boundary-types": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
   }
 }
