@@ -1,7 +1,6 @@
-import React from 'react';
 import { Flex } from '@chakra-ui/core';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
 import Logo from '../../shared/Logo';
 
 // interface Route {

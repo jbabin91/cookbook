@@ -1,10 +1,9 @@
+import { CSSReset, ThemeProvider } from '@chakra-ui/core';
 import React from 'react';
-import { ThemeProvider, CSSReset } from '@chakra-ui/core';
 import { BrowserRouter as Router } from 'react-router-dom';
-
-import CustomTheme from '../../styles/CustomTheme';
-import { Header, Footer } from '../../components/layout';
+import { Footer, Header } from '../../components/layout';
 import Routes from '../../components/Routes';
+import CustomTheme from '../../styles/CustomTheme';
 
 const App = () => (
   <ThemeProvider theme={CustomTheme}>
@@ -13,9 +12,9 @@ const App = () => (
       <>
         <Header />
         <Routes />
+        <Footer />
       </>
     </Router>
-    <Footer />
   </ThemeProvider>
 );
 

@@ -1,14 +1,13 @@
-import React from 'react';
 import { Flex } from '@chakra-ui/core';
+import React from 'react';
 import {
-  FaPinterest,
-  FaFacebook,
-  FaTwitter,
-  FaDribbble,
   FaBehance,
+  FaDribbble,
+  FaFacebook,
   FaLinkedin,
+  FaPinterest,
+  FaTwitter,
 } from 'react-icons/fa';
-
 import { Logo } from '../shared';
 
 const SocialMedia = () => (
