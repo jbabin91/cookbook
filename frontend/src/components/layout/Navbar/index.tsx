@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../shared/Logo';
@@ -20,14 +19,16 @@ import Logo from '../../shared/Logo';
 // );
 
 const Navbar = () => (
-  <Flex>
-    <Flex pr="10rem">
+  <div>
+    <div>
       <Logo />
-    </Flex>
-    <Link to="/">Home</Link>
-    <Link to="/recipes">Recipes</Link>
-    <Link to="/about">About</Link>
-  </Flex>
+    </div>
+    <div>
+      <Link to="/">Home</Link>
+      <Link to="/recipes">Recipes</Link>
+      <Link to="/about">About</Link>
+    </div>
+  </div>
 );
 
 export default Navbar;

@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/core';
 import React from 'react';
 import {
   FaBehance,
@@ -11,7 +10,7 @@ import {
 import { Logo } from '../shared';
 
 const SocialMedia = () => (
-  <Flex align="center" justify="space-between" wrap="wrap" padding="1.5rem" color="white">
+  <div>
     <a href="/">
       <FaPinterest />
     </a>
@@ -30,24 +29,15 @@ const SocialMedia = () => (
     <a href="/">
       <FaLinkedin />
     </a>
-  </Flex>
+  </div>
 );
 
 const Footer = () => {
   return (
-    <Flex
-      as="footer"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      padding="1.5rem"
-      bg="black"
-      color="white"
-      height="140px"
-    >
+    <div>
       <SocialMedia />
       <Logo />
-    </Flex>
+    </div>
   );
 };
 
