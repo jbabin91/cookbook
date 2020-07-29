@@ -31,7 +31,8 @@
   "rules": {
     "prettier/prettier": "error",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.stories.tsx"] }],
-    "@typescript-eslint/explicit-module-boundary-types": 0
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "no-param-reassign": 0
   },
   "settings": {
     "react": {

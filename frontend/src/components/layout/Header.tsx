@@ -1,10 +1,11 @@
+import { Flex } from '@chakra-ui/core';
 import React from 'react';
 import Navbar from './Navbar';
 
 const Header: React.FC = () => (
-  <div>
+  <Flex as="nav" align="center" justify="space-between" wrap="wrap" padding="1.5rem">
     <Navbar />
-  </div>
+  </Flex>
 );
 
 export default Header;
